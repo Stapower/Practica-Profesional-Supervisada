@@ -1,0 +1,6 @@
+Programas que se usarán:
+GitHub
+Composer
+Slim Framework
+ionic v2
+type script
