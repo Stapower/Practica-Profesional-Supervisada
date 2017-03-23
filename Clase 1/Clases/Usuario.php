@@ -121,7 +121,7 @@ return $objeto;
 	{
 		try{
 			$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-			$consulta =$objetoAccesoDato->RetornarConsulta("select * from usuarios");
+			$consulta =$objetoAccesoDato->RetornarConsulta("select * from Usuarios");
 			$consulta->execute();			
 			return $consulta->fetchAll(PDO::FETCH_CLASS, "Usuario");		
 		 	}
@@ -147,15 +147,27 @@ return $objeto;
 	}
 	public static function AltaUsuario($user,$pass,$rol)
 	{
+		echo "llegamos al alta";
 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-		$consulta =$objetoAccesoDato->RetornarConsulta("INSERT INTO Usuarios VALUES ('$user', '$pass','$rol')");
-		$consulta->execute();		
+		$consulta =$objetoAccesoDato->RetornarConsulta("INSERT INTO Usuarios (usuario, contraseña, rol) VALUES ('$user', '$pass','$rol')");
+		$consulta->execute();	
+		//return $objetoAccesoDato->lastInsertId();
 	}
 	public static function ModificarUsuario($id,$user,$pass,$rol)
 	{
 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
 		$consulta =$objetoAccesoDato->RetornarConsulta("UPDATE Usuarios SET usuario = '$user', pass='$pass',rol = '$rol' WHERE id = '$id'");
 		$consulta->execute();		
+		return $objetoAccesoDato->lastInsertId();
+	}
+
+	public static function EliminarUsuario($id)
+	{
+		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
+		$consulta =$objetoAccesoDato->RetornarConsulta("DELETE FROM Usuarios WHERE id = '$id'");
+		$consulta->execute();		
+		return $objetoAccesoDato->lastInsertId();
 	}
 }
+
 ?>
