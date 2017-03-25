@@ -3,12 +3,16 @@ class AccesoDatos
 {
     private static $ObjetoAccesoDatos;
     private $objetoPDO;
- 
+ /*
+$config['db']['host']   = "mx1.hostinger.com.ar";
+$config['db']['user']   = "u812631094_tomas";
+$config['db']['pass']   = "38127739";
+$config['db']['dbname'] = "u812631094_pps";*/
     private function __construct()
     {
         try { 
-            $dsn = 'mysql:dbname=id1133428_pps;host=localhost';
-            $usuario = 'id1133428_stapower';//'id135609_stapower';
+            $dsn = 'mysql:dbname=u812631094_pps;u812631094_pps';
+            $usuario = 'u812631094_tomas';//'id135609_stapower';
             $contraseña = '38127739';//'t38127739';
             //$mbd = new PDO($dsn, $usuario, $contraseña, array(PDO::ATTR_EMULATE_PREPARES => false,PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
             $this->objetoPDO = new PDO($dsn, $usuario, $contraseña, array(PDO::ATTR_EMULATE_PREPARES => false,PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));

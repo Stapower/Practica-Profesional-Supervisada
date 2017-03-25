@@ -2,12 +2,11 @@
 require_once('AccesoDatos');
 class Usuario
 {
-
-	public $id;
-	public $nombre = "ada";
- 	public $usuario;
-  	public $contraseña;
-  	public $rol;
+  	public $Nombre;
+  	public $Apellido;
+  	public $Usuario;
+  	public $Mail;
+  	public $Contraseña;
   	public $path = "usuario.txt";
   	
 	public static function guardar($correo,$contraseña,$rol)
@@ -113,7 +112,7 @@ return $objeto;
     }
 	public function ProbandoUsuario()
 	 {
-	 	return "pasaste por estacionamiento.php";
+	 	return "pasaste por usuario.php";
 	 }
  	
 	
@@ -131,7 +130,7 @@ return $objeto;
              die();
 		}
 	}
-	public static function Degradar($id)
+/*	public static function Degradar($id)
 	{
 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
 		$consulta =$objetoAccesoDato->RetornarConsulta("UPDATE Usuarios SET rol = 'empleado' WHERE id = '$id'");
@@ -144,30 +143,49 @@ return $objeto;
 		$consulta =$objetoAccesoDato->RetornarConsulta("UPDATE Usuarios SET rol = 'admin' WHERE id = '$id'");
 		$consulta->execute();			
 		return $consulta->rowCount();
-	}
-	public static function AltaUsuario($user,$pass,$rol)
+	}*/
+	public static function AltaUsuario($nombre,$Apellido,$usuario,$mail,$contraseña)
 	{
-		echo "llegamos al alta";
-		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-		$consulta =$objetoAccesoDato->RetornarConsulta("INSERT INTO Usuarios (usuario, contraseña, rol) VALUES ('$user', '$pass','$rol')");
-		$consulta->execute();	
-		//return $objetoAccesoDato->lastInsertId();
+		try
+		{
+			$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
+			$consulta =$objetoAccesoDato->RetornarConsulta("INSERT INTO 'Usuarios' ('Nombre', 'Apellido', 'Usuario', 'Mail', 'Contraseña')  VALUES ('$nombre', '$Apellido','$usuario', '$mail','$contraseña')");
+			$consulta->execute();
+		}		
+		catch(Exception $e)
+		{
+ 			print "Error!: " . $e->getMessage(); 
+             die();
+		}
 	}
-	public static function ModificarUsuario($id,$user,$pass,$rol)
+	public static function ModificarUsuario($nombre,$Apellido,$usuario,$mail,$contraseña)
 	{
-		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-		$consulta =$objetoAccesoDato->RetornarConsulta("UPDATE Usuarios SET usuario = '$user', pass='$pass',rol = '$rol' WHERE id = '$id'");
-		$consulta->execute();		
-		return $objetoAccesoDato->lastInsertId();
+		try
+		{
+			$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
+			$consulta =$objetoAccesoDato->RetornarConsulta("UPDATE Usuarios SET Nombre = '$nombre', Apellido='$Apellido',Usuario = '$usuario', 'Mail' = '$mail', 'Contraseña' = '$contraseña' WHERE id = '$id'");
+			$consulta->execute();	
+		}
+		catch(Exception $e)
+		{
+ 			print "Error!: " . $e->getMessage(); 
+             die();
+		}	
 	}
 
-	public static function EliminarUsuario($id)
+	public static function BajaUsuario($id)
 	{
-		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-		$consulta =$objetoAccesoDato->RetornarConsulta("DELETE FROM Usuarios WHERE id = '$id'");
-		$consulta->execute();		
-		return $objetoAccesoDato->lastInsertId();
+		try
+		{
+			$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
+			$consulta =$objetoAccesoDato->RetornarConsulta("DELETE FROM Usuarios WHERE id = '$id'");
+			$consulta->execute();		
+		}
+		catch(Exception $e)
+		{
+ 			print "Error!: " . $e->getMessage(); 
+             die();
+		}
 	}
 }
-
 ?>

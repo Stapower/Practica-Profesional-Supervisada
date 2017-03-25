@@ -2,8 +2,8 @@
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
-require 'vendor/autoload.php';
-require 'Clases/Usuario.php';
+require 'autoload.php';
+require './Clases/Usuario.php';
 
 $config['displayErrorDetails'] = true;
 $config['addContentLengthHeader'] = false;
@@ -34,14 +34,14 @@ $container['db'] = function ($c) {
 };
 
 
-/*$app->get('/tickets', function (Request $request, Response $response) {
+$app->get('/tickets', function (Request $request, Response $response) {
     $this->logger->addInfo("Ticket list");
     $mapper = new TicketMapper($this->db);
     $tickets = $mapper->getTickets();
 
     $response->getBody()->write(var_export($tickets, true));
     return $response;
-});*/
+});
 
 $app->get('/hello/{name}', function (Request $request, Response $response) {
     $name = $request->getAttribute('name');
@@ -61,8 +61,7 @@ $app->get('/usuarios', function (Request $request, Response $response) {
     	  	
     	foreach ($TraerTodosLosUsuarios as $User)
     	{
-
-             $response->getBody()->write("Lista \n usuario: ".$User->Usuario ." Mail: ". $User->Mail . " Nombre " . $User->Nombre . " Apellido: " . $User->Apellido . "contraseña" . $User->Contraseña . "ID: " . $User->Contraseña);
+    		 $response->getBody()->write("Lista \n".$User->Dni ." nombre: ". $User->Nombre . " Apellido " . $User->Apellido . " iD: " . $User->Id);
     	}   	
 	}
 	catch(Exception $ex)
@@ -76,32 +75,37 @@ $app->put('/put', function () {
     echo "hola";//Create book
 });
 
-$app->post('/add/{usuario}', function ($request, $response, $args) {
+$app->post('/add', function ($request, $response, $args) {
     try
     {
-       $usuario = $request->getAttribute('usuario');
-       $datosUsuario = array();
-       $datosUsuario = explode(',', $usuario);
+        $sql = "INSERT INTO Usuarios (username, mail, nombre,contraseña) VALUES ( :username, :mail, :nombre, :contraseña);";
+        $db = getDB();
+        $stmt = $db->prepare($sql);
 
-       Usuario::AltaUsuario($datosUsuario[0],$datosUsuario[1],$datosUsuario[2],$datosUsuario[3],$datosUsuario[4]);
+        $body = $request->getBody();
+        $form_data =$body;
+
+        $username=$form_data['username'];
+        $mail=$form_data['mail'];
+        $nombre=$form_data['nombre'];
+        $contraseña=$form_data['contraseña'];
+
+        $stmt->bindParam(':username', $username, PDO::PARAM_STRING);
+        $stmt->bindParam(':mail', $username, PDO::PARAM_STRING);
+        $stmt->bindParam(':nombre', $username, PDO::PARAM_STRING);
+        $stmt->bindParam(':contraseña', $username, PDO::PARAM_STRING);
+
+        
+        $stmt->execute();
+
+        $id_usuario= $db->lastInsertId();
+        $db = null;
+        echo json_encode($id_usuario);
     }
     catch(Exception $ex)
     {
         return $ex-message();
     }
 });
-
-$app->delete('/delete/{usuario}', function ($request, $response, $args) {
-    try
-    {
-       $usuarioId = $request->getAttribute('usuario');
-       Usuario::BajaUsuario($usuarioId);
-    }
-    catch(Exception $ex)
-    {
-        return $ex-message();
-    }
-});
-
 
 $app->run();
