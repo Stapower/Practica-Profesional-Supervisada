@@ -1,0 +1,5 @@
+1-bajar icon.psd y splash psd de ionic
+splash 2208x2208
+icon 192x192
+2-guardar en formate png
+reemplacar en carpeta resources
