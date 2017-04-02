@@ -3,3 +3,19 @@ splash 2208x2208
 icon 192x192
 2-guardar en formate png
 reemplacar en carpeta resources
+ejecutar comando 
+ionic resources android
+
+----------------
+ionic start --v2 clase2 tabs
+cordova platform add android
+ionic build android
+ionic run android
+----------------
+sacar la version platform de android e instalar la última
+@latest
+cordova platform add android
+cordova platform add android @latest
+
+ionic start 
+descarga todo lo que no se subió a github

@@ -1,0 +1,42 @@
+<p>
+  login works!
+</p>
+
+
+
+<!--
+<table>
+  <td>
+    <tr>
+      <label> Usuario </label>
+      <input type="text" id =user>
+    </tr>
+    <tr>
+       <label> Contraseña </label>
+      <input type="text" id =pass>
+    </tr>
+    <tr>
+      <button type="button" id =btnLogin onclick="test()">LogIn</button>
+    </tr>
+  </td>
+</table>
+-->
+<input [value]="username" (input)="username = $event.target.value">
+<p>Hello {{username}}!</p>
+
+
+<custom-counter [(counter)]="usuario"></custom-counter>
+SetUser({})
+<p>counterValue = {{usuario}}</p>
+
+
+<div class="login">
+	<h1>Login</h1>
+    <form method="post">
+    	<input type="text" name="u" id="username" placeholder="Username" required="required" />
+        <input type="password" name="password" placeholder="Password" required="required" />
+        <button type="submit" class="btn btn-primary btn-block btn-large" onclick="hacer_click()">Let me in.</button>
+    </form>
+</div>
+
+
