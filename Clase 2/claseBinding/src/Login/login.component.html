@@ -1,0 +1,43 @@
+<p>
+  login works!
+</p>
+
+
+
+<!--
+<table>
+  <td>
+    <tr>
+      <label> Usuario </label>
+      <input type="text" id =user>
+    </tr>
+    <tr>
+       <label> Contraseña </label>
+      <input type="text" id =pass>
+    </tr>
+    <tr>
+      <button type="button" id =btnLogin onclick="test()">LogIn</button>
+    </tr>
+  </td>
+</table>
+-->
+<input [value]="username" (input)="username = $event.target.value">
+<p>Hello {{username}}!</p>
+
+
+<custom-counter [(counter)]="usuario"></custom-counter>
+SetUser({})
+<p>counterValue = {{usuario}}</p>
+
+
+<div class="login">
+	<h1>Login</h1>
+    <form method="post">
+    	<input type="text" name="u" id="username"  [(ngModel)] = "user.usuario" placeholder="Username" required="required" />
+        <input type="password" name="password"  [(ngModel)] = "user.clave" placeholder="Password" required="required" />
+        <input type="submit" class="btn btn-primary btn-block btn-large" (click) ="Login()" value="Login">
+
+    </form>
+</div>
+
+
